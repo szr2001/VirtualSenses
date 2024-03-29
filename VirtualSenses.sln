@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualSenses", "VirtualSenses.csproj", "{53B46ED9-6C7D-4008-A223-6AC464DE2BC1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53B46ED9-6C7D-4008-A223-6AC464DE2BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B46ED9-6C7D-4008-A223-6AC464DE2BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B46ED9-6C7D-4008-A223-6AC464DE2BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B46ED9-6C7D-4008-A223-6AC464DE2BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {065BEB3C-8370-43A0-B6B4-095CB843ADB6}
+	EndGlobalSection
+EndGlobal
