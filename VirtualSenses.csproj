@@ -12,10 +12,22 @@
   <ItemGroup>
     <None Remove="Assets\closedeye.png" />
     <None Remove="Assets\hearing.png" />
+    <None Remove="Assets\move.png" />
+    <None Remove="Assets\pause.png" />
+    <None Remove="Assets\play.png" />
     <None Remove="Assets\SmallRoundArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\move.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\SmallRoundArrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

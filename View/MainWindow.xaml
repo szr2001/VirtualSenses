@@ -54,6 +54,8 @@
                     <ToggleButton Margin="6"
                                   x:Name="ToggleSeeingButton"
                                   FontSize="20"
+                                  Command="{Binding OnSeeingToggled}"
+                                  CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"
                                   Background="{Binding Source={StaticResource SeeingBlue}}"
                                   Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}"
                                   Style="{Binding Source={StaticResource ToggleButtonStyle}}"
@@ -72,6 +74,8 @@
 
                     <ToggleButton FontSize="20"
                                   x:Name="ToggleHearingButton"
+                                  Command="{Binding OnHearingToggled}"
+                                  CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"
                                   Background="{Binding Source= {StaticResource hearingPurple}}"
                                   Style="{Binding Source={StaticResource ToggleButtonStyle}}"
                                   Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}"

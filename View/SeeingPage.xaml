@@ -15,7 +15,7 @@
             Background="{Binding Source={StaticResource SeeingBlue}}">
         <StackPanel Orientation="Vertical">
             <Border CornerRadius="8"
-                    Margin="8,8,8,40"
+                    Margin="8,8,8,0"
                     Height="280"
                     Background="{Binding Source={StaticResource SeeingSlightDarkBlue}}">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -45,16 +45,35 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Border>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    
-                </Grid.RowDefinitions>
-            </Grid>
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton Style="{Binding Source={StaticResource ToggleButtonStyle}}"
+                                  Name="TogglePlay"
+                                  Background="{Binding Source={StaticResource SeeingLightBlue}}"
+                                  Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}">
+                        <Image Width="20"
+                               Margin="1"
+                               Height="20">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="../Assets/play.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="False">
+                                                <Setter Property="Source" Value="../Assets/play.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="True">
+                                            <Setter Property="Source" Value="../Assets/pause.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </ToggleButton>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Border>
 </Page>

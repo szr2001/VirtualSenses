@@ -3,6 +3,7 @@ using System.Windows;
 using VirtualEyes.Model;
 using VirtualEyes.View;
 using VirtualEyes.ViewModel;
+using VirtualSenses.View;
 
 namespace VirtualEyes
 {
@@ -27,13 +28,16 @@ namespace VirtualEyes
             OptionsPageModel optionsModel = new();
             OptionsPage options = new(optionsModel);
 
-            SeeingPageModel seeingModel = new(imgToText,textToSpeech);
+            ReadingAreaIndicatorWindow readingindicator = new();
+            SeeingPageModel seeingModel = new(imgToText, textToSpeech, readingindicator);
             SeeingPage seeing = new(seeingModel);
 
             HearingPageModel hearingModel = new();
             HearingPage hearing = new(hearingModel);
 
-            MainWindowModel mainWindowModel = new(seeing,hearing,options);
+            MainWindowModel mainWindowModel = new(seeing, hearing, options);
+            mainWindowModel.OnSeeingEnabled += seeingModel.ShowReadingArea;
+            mainWindowModel.OnSeeingDisabled+= seeingModel.HideReadingArea;
 
             TestingWindow testingWindow = new();
             testingWindow.Show();
