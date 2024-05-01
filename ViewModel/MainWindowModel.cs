@@ -1,6 +1,4 @@
 ﻿using MVVM_UnitTestingPractice.Commands;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -53,8 +51,6 @@ namespace VirtualEyes.ViewModel
                     OnSeeingDisabled?.Invoke();
                 }
             }
-
-            Console.WriteLine(ActiveMode);
         }
 
         private void HearingToggled(object obj)
@@ -79,7 +75,6 @@ namespace VirtualEyes.ViewModel
                     OnHearingDisabled?.Invoke();
                 }
             }
-            Console.WriteLine(ActiveMode);
         }
     }
 

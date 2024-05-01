@@ -45,35 +45,62 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Border>
-            <StackPanel Orientation="Vertical"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="10">
-                <StackPanel Orientation="Horizontal">
-                    <ToggleButton Style="{Binding Source={StaticResource ToggleButtonStyle}}"
-                                  Name="TogglePlay"
-                                  Background="{Binding Source={StaticResource SeeingLightBlue}}"
-                                  Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}">
-                        <Image Width="20"
-                               Margin="1"
-                               Height="20">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Setter Property="Source" Value="../Assets/play.png"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="False">
-                                                <Setter Property="Source" Value="../Assets/play.png"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="True">
-                                            <Setter Property="Source" Value="../Assets/pause.png"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                    </ToggleButton>
-                </StackPanel>
-            </StackPanel>
+            <Grid HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="33"
+                  Margin="10">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ToggleButton Style="{Binding Source={StaticResource ToggleButtonStyle}}"
+                              Name="TogglePlay"
+                              Command = "{Binding OnTogglePlay}"
+                              CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"
+                              Background="{Binding Source={StaticResource SeeingLightBlue}}"
+                              Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}"
+                              Grid.Column="4">
+                    <Image Width="30"
+                           Margin="1"
+                           Height="30">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="../Assets/play.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="False">
+                                        <Setter Property="Source" Value="../Assets/play.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = TogglePlay}" Value="True">
+                                        <Setter Property="Source" Value="../Assets/pause.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </ToggleButton>
+                <Button Style="{Binding Source={StaticResource ButtonStyle}}"
+                        Name="PasteText"
+                        Margin="4"
+                        Command="{Binding OnPasteText}"
+                        Background="{Binding Source={StaticResource SeeingLightBlue}}"
+                        Template="{Binding Source={StaticResource RoundedBtnTemp}}"
+                        Grid.Column="8">
+                    <Image Width="18"
+                           Margin="1"
+                           Height="18"
+                           Source="../Assets/copy.png">
+
+                    </Image>
+                </Button>
+            </Grid>
         </StackPanel>
     </Border>
 </Page>
