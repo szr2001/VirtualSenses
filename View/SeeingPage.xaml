@@ -63,6 +63,7 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton Style="{Binding Source={StaticResource ToggleButtonStyle}}"
                               Name="TogglePlay"
+                              IsChecked="{Binding IsSpeaking}"
                               Command = "{Binding OnTogglePlay}"
                               CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"
                               Background="{Binding Source={StaticResource SeeingLightBlue}}"

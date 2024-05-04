@@ -39,8 +39,8 @@ namespace VirtualEyes
             mainWindowModel.OnSeeingEnabled += seeingModel.ShowReadingArea;
             mainWindowModel.OnSeeingDisabled+= seeingModel.HideReadingArea;
 
-            TestingWindow testingWindow = new();
-            testingWindow.Show();
+            //TestingWindow testingWindow = new();
+            //testingWindow.Show();
 
             MainWindow mainWindow = new(mainWindowModel);
             mainWindow.Show();

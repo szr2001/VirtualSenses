@@ -1,45 +1,52 @@
 ﻿using MVVM_UnitTestingPractice.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Speech.Synthesis;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using VirtualEyes.Model;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace VirtualEyes.ViewModel
 {
-    public class SeeingPageModel
+    public class SeeingPageModel:INotifyPropertyChanged
     {
         public ObservableCollection<string> ReadedTextCollection { get; set; } = [];
 
         public ICommand OnTogglePlay { get; private set; }
         public ICommand OnPasteText { get; private set; }
-        public bool IsSpeaking { get; set; }
+        public bool IsSpeaking 
+        { 
+            get 
+            { 
+                return isSpeaking; 
+            } 
+            set 
+            {
+                isSpeaking = value;
+                Console.WriteLine(isSpeaking);
+                OnPropertyChanged(nameof(IsSpeaking));
+            } 
+        }
+        private bool isSpeaking;
 
         private Window readingArea;
         private TextToSpeech textToSpeech;
         private ImageToText imgToText;
         private string extractedText = string.Empty;
-        private SpeechSynthesizer speachSynthesizer;
-        private Prompt? speakingWork;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public SeeingPageModel(ImageToText imgtotext, TextToSpeech texttospeech, Window readingarea)
         {
             imgToText = imgtotext;
             textToSpeech = texttospeech;
             readingArea = readingarea;
 
-            speachSynthesizer = new()
-            {
-                Rate = 3,
-                Volume = 10
-            };
-            speachSynthesizer.SetOutputToDefaultAudioDevice();
-
+            textToSpeech.OnIsSpeaking += (speaking) => { IsSpeaking = speaking; };
+            textToSpeech.OnSpeaking += Console.WriteLine;
             OnTogglePlay = new RelayCommand(ToggleReadArea);
             OnPasteText = new RelayCommand(PasteText);
         }
@@ -48,7 +55,14 @@ namespace VirtualEyes.ViewModel
         {
             if (obj is bool toggled)
             {
-                Console.WriteLine(toggled);
+                if (toggled)
+                {
+
+                }
+                else
+                {
+                    textToSpeech.Stop();
+                }
             }
         }
 
@@ -56,12 +70,8 @@ namespace VirtualEyes.ViewModel
         {
             extractedText = Clipboard.GetText();
             ConvertExtractedTextToCollection(extractedText);
-            ReadText();
-        }
-
-        private void ExtractTextFromArea()
-        {
-
+            textToSpeech.ReadText(extractedText);
+            isSpeaking = true;
         }
 
         private void ConvertExtractedTextToCollection(string text)
@@ -73,18 +83,6 @@ namespace VirtualEyes.ViewModel
             {
                 ReadedTextCollection.Add(UwU);
             }
-        }
-
-        private void ReadText()
-        {
-            if (string.IsNullOrEmpty(extractedText)) return;
-
-            if(speakingWork != null)
-            {
-                speachSynthesizer.SpeakAsyncCancel(speakingWork);
-                speakingWork = null;
-            }
-            speakingWork = speachSynthesizer.SpeakAsync(extractedText);
         }
 
         public void ShowReadingArea()
