@@ -57,12 +57,28 @@ namespace VirtualEyes.ViewModel
             {
                 if (toggled)
                 {
-
+                    ReadScreenText();
                 }
                 else
                 {
                     textToSpeech.Stop();
+                    ReadedTextCollection.Clear();
                 }
+            }
+        }
+
+        private void ReadScreenText()
+        {
+            extractedText = imgToText.ReadScreenText(readingArea.RestoreBounds);
+            if (!string.IsNullOrEmpty(extractedText))
+            {
+                ConvertExtractedTextToCollection(extractedText);
+                Read();
+            }
+            else
+            {
+                ReadedTextCollection.Clear();
+                isSpeaking = false;
             }
         }
 
@@ -70,18 +86,24 @@ namespace VirtualEyes.ViewModel
         {
             extractedText = Clipboard.GetText();
             ConvertExtractedTextToCollection(extractedText);
+            Read();
+        }
+
+        private void Read()
+        {
             textToSpeech.ReadText(extractedText);
             isSpeaking = true;
         }
 
+        private readonly char[] splitChars = [' ', ',', '.', '!', '?'];
         private void ConvertExtractedTextToCollection(string text)
         {
             ReadedTextCollection.Clear();
-            string[] textwords = text.Split(" ");
+            string[] textwords = text.Split(splitChars);
 
-            foreach (string UwU in textwords)
+            foreach (string word in textwords)
             {
-                ReadedTextCollection.Add(UwU);
+                ReadedTextCollection.Add(word);
             }
         }
 
@@ -89,6 +111,7 @@ namespace VirtualEyes.ViewModel
         {
             readingArea.Show();
         }
+
         public void HideReadingArea()
         {
             readingArea.Hide();
