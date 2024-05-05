@@ -1,8 +1,10 @@
 ﻿using MVVM_UnitTestingPractice.Commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using VirtualEyes.Model;
 
 namespace VirtualEyes.ViewModel
@@ -72,6 +74,7 @@ namespace VirtualEyes.ViewModel
             extractedText = imgToText.ReadScreenText(readingArea.RestoreBounds);
             if (!string.IsNullOrEmpty(extractedText))
             {
+                extractedText = FilterText(extractedText);
                 ConvertExtractedTextToCollection(extractedText);
                 Read();
             }
@@ -85,6 +88,7 @@ namespace VirtualEyes.ViewModel
         private void PasteText(object obj)
         {
             extractedText = Clipboard.GetText();
+            extractedText = FilterText(extractedText);
             ConvertExtractedTextToCollection(extractedText);
             Read();
         }
@@ -95,11 +99,36 @@ namespace VirtualEyes.ViewModel
             isSpeaking = true;
         }
 
-        private readonly char[] splitChars = [' ', ',', '.', '!', '?'];
+        private readonly string allowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,'!?: ";
+        private string FilterText(string original)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            char space = ' ';
+            char previouschar = ' ';
+
+            foreach(char c in original)
+            {
+                if (previouschar == space && c == space) 
+                {
+                    previouschar = c;
+                    continue;
+                }
+                if (allowedCharacters.Contains(c))
+                {
+                    sb.Append(c);
+                }
+                previouschar = c;
+            }
+            
+            return sb.ToString();
+        }
+
+        private readonly char splitChar = ' ';
         private void ConvertExtractedTextToCollection(string text)
         {
             ReadedTextCollection.Clear();
-            string[] textwords = text.Split(splitChars);
+            string[] textwords = text.Split(splitChar);
 
             foreach (string word in textwords)
             {
