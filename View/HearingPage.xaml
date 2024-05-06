@@ -11,7 +11,7 @@
 
     <Border CornerRadius="8"
             MinWidth="100"
-            MinHeight="100"
+            MinHeight="200"
             Background="{Binding Source={StaticResource hearingPurple}}">
         
     </Border>

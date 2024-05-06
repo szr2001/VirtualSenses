@@ -56,6 +56,7 @@ namespace VirtualEyes.ViewModel
             get => isDictateMode;
             set
             {
+                ToggleReadArea(false);
                 isDictateMode = value;
                 OnPropertyChanged(nameof(IsDictateMode));
             }
@@ -67,6 +68,7 @@ namespace VirtualEyes.ViewModel
             get => isContinuousReading;
             set
             {
+                ToggleReadArea(false);
                 isContinuousReading = value;
                 OnPropertyChanged(nameof(IsContinuousReading));
             }
@@ -136,7 +138,7 @@ namespace VirtualEyes.ViewModel
         {
             IsSpeaking = true;
 
-            while (true)
+            while (IsContinuousReading)
             {
                 if (token.IsCancellationRequested) break;
                 ReadScreenText();
@@ -217,6 +219,10 @@ namespace VirtualEyes.ViewModel
         }
 
         public void ShowReadingArea() => readingArea.Show();
-        public void HideReadingArea() => readingArea.Hide();
+        public void HideReadingArea()
+        {
+            ToggleReadArea(false);
+            readingArea.Hide();
+        }
     }
 }

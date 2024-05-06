@@ -32,12 +32,15 @@ namespace VirtualEyes
             SeeingPageModel seeingModel = new(imgToText, textToSpeech, readingindicator);
             SeeingPage seeing = new(seeingModel);
 
-            HearingPageModel hearingModel = new();
+            SubtitlesWindow subtitlesWindow = new();
+            HearingPageModel hearingModel = new(subtitlesWindow, voiceRecognition);
             HearingPage hearing = new(hearingModel);
 
             MainWindowModel mainWindowModel = new(seeing, hearing, options);
             mainWindowModel.OnSeeingEnabled += seeingModel.ShowReadingArea;
-            mainWindowModel.OnSeeingDisabled+= seeingModel.HideReadingArea;
+            mainWindowModel.OnSeeingDisabled += seeingModel.HideReadingArea;
+            mainWindowModel.OnHearingEnabled += hearingModel.ShowSubtitles;
+            mainWindowModel.OnHearingDisabled += hearingModel.HideSubtitles;
 
             //TestingWindow testingWindow = new();
             //testingWindow.Show();

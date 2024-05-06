@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualSenses.View"
         mc:Ignorable="d"
-        Title="SubtitlesWindow" Height="450" Width="800">
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="SubtitlesWindow" Height="250" Width="700" Topmost="True">
     <Grid>
-        
+        <Border CornerRadius="25"
+                x:Name="SubtitlesBorder"
+                Opacity="0.5"
+                Background="Black">
+        </Border>
+        <TextBlock Text="{Binding Subtitles}" 
+                   TextAlignment="Center"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="25"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

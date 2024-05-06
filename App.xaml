@@ -16,6 +16,7 @@
         <SolidColorBrush x:Key="hearingDarkPurple" Color="#401F71" />
         <SolidColorBrush x:Key="hearingPurple" Color="#824D74" />
         <SolidColorBrush x:Key="hearingLightPurple" Color="#BE7B72" />
+        <SolidColorBrush x:Key="LowOpacityBlack" Color="#BE7B72" />
         
         <Style TargetType="{x:Type ResizeGrip}">
             <Setter Property="Margin"  Value="13"/>
