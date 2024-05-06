@@ -63,6 +63,7 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton Style="{Binding Source={StaticResource ToggleButtonStyle}}"
                               Name="TogglePlay"
+                              ToolTip="Start reading from area"
                               IsChecked="{Binding IsSpeaking}"
                               Command = "{Binding OnTogglePlay}"
                               CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"
@@ -90,6 +91,7 @@
                 <Button Style="{Binding Source={StaticResource ButtonStyle}}"
                         Name="PasteText"
                         Margin="4"
+                        ToolTip="Read text from clipboard"
                         Command="{Binding OnPasteText}"
                         Background="{Binding Source={StaticResource SeeingLightBlue}}"
                         Template="{Binding Source={StaticResource RoundedBtnTemp}}"
@@ -101,6 +103,108 @@
 
                     </Image>
                 </Button>
+                <ToggleButton Name="ToggleContinuousReading"
+                              ToolTip="Continuous Reading"
+                              Margin="4"
+                              IsChecked="{Binding IsContinuousReading}"
+                              Background="{Binding Source={StaticResource SeeingLightBlue}}"
+                              Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}"
+                              Grid.Column="0">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Style.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                    <Border Padding="9"
+                            CornerRadius="8">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = ToggleContinuousReading}" Value="True">
+                                        <Setter Property="Background" Value="DarkGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = ToggleContinuousReading}" Value="False">
+                                        <Setter Property="Background" Value="DarkRed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </ToggleButton>
+                <ToggleButton Name="ToggleDictateMode"
+                              ToolTip="Toggle dictate mode"
+                              Margin="4"
+                              IsChecked="{Binding IsDictateMode}"
+                              Background="{Binding Source={StaticResource SeeingLightBlue}}"
+                              Template="{Binding Source={StaticResource ToggleRoundedBtnTemp}}"
+                              Grid.Column="1">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Style.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                    <Border Padding="9"
+                            CornerRadius="8">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = ToggleDictateMode}" Value="True">
+                                        <Setter Property="Background" Value="DarkGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName = ToggleDictateMode}" Value="False">
+                                        <Setter Property="Background" Value="DarkRed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </ToggleButton>
+                <ComboBox Grid.Column="6"
+                          Width="35"
+                          ToolTip="Reading speed"
+                          FontWeight="Bold"
+                          FontSize="14"
+                          ItemsSource="{Binding Speeds}"
+                          SelectedItem="{Binding ReadingSpeed}"
+                          Height="25">
+                </ComboBox>
+                <ComboBox Grid.Column="7"
+                          Width="35"
+                          ToolTip="Screen text detection scan interval"
+                          FontWeight="Bold"
+                          FontSize="14"
+                          ItemsSource="{Binding Speeds}"
+                          SelectedItem="{Binding SeeingSpeed}"
+                          Height="25">
+                </ComboBox>
             </Grid>
         </StackPanel>
     </Border>
