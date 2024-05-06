@@ -104,66 +104,70 @@ namespace VirtualEyes.ViewModel
 
         private void ToggleReadArea(object obj)
         {
-            if (obj is bool toggled)
-            {
-                if (toggled)
-                {
-                    if (isContinuousReading)
-                    {
-                        if (Reading != null) return;
+            if (obj is not bool toggled) return;
 
-                        tokenSource = new();
-                        Reading = ContinuousScreenReading(tokenSource.Token);
-                    }
-                    else 
-                    {
-                        ReadScreenText();
-                    }
+            if (toggled)
+            {
+                if (isContinuousReading)
+                {
+                    if (Reading != null) return;
+
+                    tokenSource = new();
+                    Reading = ContinuousScreenReading(tokenSource.Token);
                 }
                 else
                 {
-                    if(isContinuousReading)
-                    {
-                        tokenSource.Cancel();
-                        Reading = null;
-                    }
-                    textToSpeech.Stop();
-                    ReadedTextCollection.Clear();
+                    ReadScreenText();
                 }
+            }
+            else
+            {
+                if (isContinuousReading)
+                {
+                    tokenSource.Cancel();
+                    Reading = null;
+                }
+                textToSpeech.Stop();
+                ReadedTextCollection.Clear();
             }
         }
 
         private async Task ContinuousScreenReading(CancellationToken token)
         {
             IsSpeaking = true;
+
             while (true)
             {
                 if (token.IsCancellationRequested) break;
                 ReadScreenText();
                 await Task.Delay(SeeingSpeed*1000);
             }
+
             IsSpeaking = false;
         }
 
         private void ReadScreenText()
         {
             extractedText = imgToText.ReadScreenText(readingArea.RestoreBounds);
-            if (!string.IsNullOrEmpty(extractedText))
-            {
-                extractedText = FilterText(extractedText);
-                ConvertExtractedTextToCollection(extractedText);
-                Read();
-            }
-            else
+            if (string.IsNullOrEmpty(extractedText))
             {
                 ReadedTextCollection.Clear();
-                IsSpeaking = false;
+                if (!isContinuousReading)
+                {
+                    IsSpeaking = false;
+                }
+                return;
             }
+
+            extractedText = FilterText(extractedText);
+            ConvertExtractedTextToCollection(extractedText);
+
+            Read();
         }
 
         private void PasteText(object obj)
         {
-            extractedText = Clipboard.GetText();
+            extractedText = Clipboard.GetText() ?? "ClipBoard Empty";
             extractedText = FilterText(extractedText);
             ConvertExtractedTextToCollection(extractedText);
             Read();
@@ -212,14 +216,7 @@ namespace VirtualEyes.ViewModel
             }
         }
 
-        public void ShowReadingArea()
-        {
-            readingArea.Show();
-        }
-
-        public void HideReadingArea()
-        {
-            readingArea.Hide();
-        }
+        public void ShowReadingArea() => readingArea.Show();
+        public void HideReadingArea() => readingArea.Hide();
     }
 }
