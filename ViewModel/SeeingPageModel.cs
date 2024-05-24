@@ -141,8 +141,13 @@ namespace VirtualEyes.ViewModel
             while (IsContinuousReading)
             {
                 if (token.IsCancellationRequested) break;
+                if (textToSpeech.IsSpeaking)
+                {
+                    await Task.Delay(200, token);
+                    continue;
+                }
                 ReadScreenText();
-                await Task.Delay(SeeingSpeed*1000);
+                await Task.Delay(SeeingSpeed * 1000, token);
             }
 
             IsSpeaking = false;

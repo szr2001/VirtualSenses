@@ -13,7 +13,8 @@ namespace VirtualEyes.Model
         public delegate void SpokenWorkd(string word);
         public delegate void Speaking(bool isSpeaking);
         public event SpokenWorkd? OnSpeaking;   
-        public event Speaking? OnIsSpeaking;   
+        public event Speaking? OnIsSpeaking;
+        public bool IsSpeaking => speachSynthesizer.State == SynthesizerState.Speaking;
 
         private SpeechSynthesizer speachSynthesizer;
         private Prompt? speakingWork;

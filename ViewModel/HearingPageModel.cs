@@ -18,7 +18,11 @@ namespace VirtualEyes.ViewModel
             subtitleWindow = subtitleswin;
             voiceRecognition = voicerec;
         }
-        public void ShowSubtitles() => subtitleWindow.Show();
+        public void ShowSubtitles()
+        {
+            subtitleWindow.Show();
+            Console.WriteLine(voiceRecognition.Listen());
+        }
         public void HideSubtitles() => subtitleWindow.Hide();
     }
 }
