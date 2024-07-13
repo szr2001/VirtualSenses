@@ -11,4 +11,4 @@ Hearing, where it will listen to background audio for speech useful for:
 -Overlay live subtitles on the screen based on background audio to help people with hearing problems be part of grup calls discusions.
 -Live translation, making the user able to understand people that speak another language in grup calls.
 
-We'll see how many features I can actually make work. xD
+Currently Abandoned/OnHold because I don't have the problem it was meant to solve anymore
